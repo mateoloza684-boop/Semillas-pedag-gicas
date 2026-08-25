@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="EduVisión - Revista educativa">
+<title>EduVisión | Revista Educativa</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+body{font-family:"Segoe UI",Arial,sans-serif;background:#f4f7fb;color:#1e293b}
+header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(15,23,42,.88);backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+nav{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding:18px 30px}
+.logo{color:#fff;font-size:1.6rem;font-weight:800;letter-spacing:1px}.logo span{color:#38bdf8}
+nav ul{display:flex;list-style:none;gap:30px}nav a{color:#fff;text-decoration:none;font-weight:600;position:relative;transition:.3s}
+nav a:after{content:"";position:absolute;bottom:-6px;left:0;width:0;height:2px;background:#38bdf8;transition:.3s}
+nav a:hover{color:#38bdf8}nav a:hover:after{width:100%}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 20px 80px;
+background-image:linear-gradient(rgba(8,47,73,.82),rgba(15,23,42,.88)),url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1800&q=80");
+background-size:cover;background-position:center;background-attachment:fixed;position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(120px);opacity:.25}
+.hero:before{width:350px;height:350px;background:#38bdf8;top:10%;left:5%}.hero:after{width:300px;height:300px;background:#a855f7;bottom:5%;right:5%}
+.hero-content{max-width:900px;position:relative;z-index:2;animation:aparecer 1.2s ease}
+.etiqueta{display:inline-block;padding:9px 18px;margin-bottom:20px;border-radius:50px;background:rgba(56,189,248,.18);border:1px solid rgba(56,189,248,.5);color:#7dd3fc;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.8rem}
+.hero h1{font-size:clamp(3rem,8vw,6rem);color:#fff;line-height:.95;margin-bottom:25px;text-shadow:0 10px 30px rgba(0,0,0,.3)}
+.hero h1 span{background:linear-gradient(90deg,#38bdf8,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{max-width:700px;margin:auto;color:#e2e8f0;font-size:1.2rem;line-height:1.8}
+.botones{margin-top:35px;display:flex;justify-content:center;gap:15px;flex-wrap:wrap}
+.btn{display:inline-block;padding:15px 28px;border-radius:50px;text-decoration:none;font-weight:700;transition:.3s}
+.btn-principal{background:linear-gradient(90deg,#38bdf8,#6366f1);color:#fff;box-shadow:0 10px 30px rgba(56,189,248,.3)}
+.btn-principal:hover,.btn-secundario:hover{transform:translateY(-4px)}
+.btn-secundario{border:1px solid rgba(255,255,255,.4);color:#fff;background:rgba(255,255,255,.08);backdrop-filter:blur(8px)}
+section{padding:90px 20px}.contenedor{max-width:1150px;margin:auto}
+.titulo-seccion{text-align:center;margin-bottom:50px}.titulo-seccion h2{font-size:2.5rem;color:#0f172a;margin-bottom:10px}
+.titulo-seccion p{color:#64748b;max-width:650px;margin:auto}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:25px}
+.card{background:#fff;padding:35px 25px;border-radius:22px;box-shadow:0 10px 30px rgba(15,23,42,.08);border:1px solid #e2e8f0;transition:.35s;position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;width:100%;height:4px;top:0;left:0;background:linear-gradient(90deg,#38bdf8,#8b5cf6)}
+.card:hover{transform:translateY(-10px);box-shadow:0 20px 45px rgba(15,23,42,.14)}
+.icono{width:65px;height:65px;display:grid;place-items:center;border-radius:18px;background:#e0f2fe;font-size:1.8rem;margin-bottom:20px}
+.card h3{margin-bottom:12px;color:#0f172a}.card p{color:#64748b;line-height:1.7}
+.destacado{background:linear-gradient(120deg,rgba(15,23,42,.96),rgba(30,41,59,.94)),url("https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1600&q=80");background-size:cover;background-position:center;color:#fff}
+.destacado-contenido{max-width:1000px;margin:auto;text-align:center}.destacado h2{font-size:3rem;margin-bottom:20px}
+.destacado p{max-width:760px;margin:auto;color:#cbd5e1;line-height:1.8}
+.contador{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:700px;margin:40px auto 0}
+.numero{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:25px;border-radius:20px}
+.numero strong{display:block;font-size:2.3rem;color:#7dd3fc}.numero span{color:#cbd5e1}
+.formulario{max-width:650px;margin:auto;background:#fff;padding:40px;border-radius:25px;box-shadow:0 15px 40px rgba(15,23,42,.1)}
+.formulario input,.formulario button{width:100%;padding:15px;margin-bottom:15px;border-radius:12px;font-size:1rem}
+.formulario input{border:1px solid #cbd5e1;outline:none}.formulario input:focus{border-color:#38bdf8;box-shadow:0 0 0 3px rgba(56,189,248,.15)}
+.formulario button{border:none;cursor:pointer;background:linear-gradient(90deg,#0ea5e9,#6366f1);color:#fff;font-weight:700;transition:.3s}.formulario button:hover{transform:translateY(-2px)}
+footer{background:#020617;color:#94a3b8;padding:35px 20px;text-align:center}footer strong{color:#fff}
+@keyframes aparecer{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){nav{flex-direction:column;gap:12px}nav ul{gap:15px;flex-wrap:wrap;justify-content:center}.hero{background-attachment:scroll}.contador{grid-template-columns:1fr}.formulario{padding:25px}}
+</style>
+</head>
+<body>
+<header><nav>
+<div class="logo">Edu<span>Visión</span></div>
+<ul><li><a href="#inicio">Inicio</a></li><li><a href="#revista">Revista</a></li><li><a href="#contenido">Contenido</a></li><li><a href="#suscripcion">Suscríbete</a></li></ul>
+</nav></header>
+
+<section class="hero" id="inicio">
+<div class="hero-content">
+<div class="etiqueta">Nueva edición disponible</div>
+<h1>EDU<span>VISIÓN</span></h1>
+<p>La nueva revista educativa que conecta conocimiento, creatividad, ciencia y cultura para transformar la manera en que aprendemos.</p>
+<div class="botones">
+<a href="#suscripcion" class="btn btn-principal">🚀 Suscribirme ahora</a>
+<a href="#revista" class="btn btn-secundario">📖 Conocer la revista</a>
+</div>
+</div>
+</section>
+
+<section id="revista"><div class="contenedor">
+<div class="titulo-seccion"><h2>Una revista para aprender diferente</h2><p>EduVisión combina educación, ciencia, tecnología, cultura e innovación en un solo espacio.</p></div>
+<div class="cards">
+<article class="card"><div class="icono">🔬</div><h3>Ciencia</h3><p>Descubre explicaciones claras y contenidos científicos pensados para despertar la curiosidad.</p></article>
+<article class="card"><div class="icono">💡</div><h3>Innovación</h3><p>Nuevas ideas y herramientas para transformar la educación y mejorar nuestras formas de aprender.</p></article>
+<article class="card"><div class="icono">🌎</div><h3>Cultura</h3><p>Conoce diferentes perspectivas culturales, históricas y sociales desde una mirada educativa.</p></article>
+<article class="card"><div class="icono">🎓</div><h3>Educación</h3><p>Estrategias, reflexiones y recursos para estudiantes, docentes y amantes del conocimiento.</p></article>
+</div></div></section>
+
+<section class="destacado" id="contenido"><div class="destacado-contenido">
+<h2>🔥 Gran lanzamiento</h2>
+<p>Nuestra primera edición reúne artículos especiales, investigaciones, actividades educativas, entrevistas, recursos didácticos y contenidos diseñados para inspirar una nueva generación de estudiantes.</p>
+<div class="contador"><div class="numero"><strong>50+</strong><span>Artículos</span></div><div class="numero"><strong>20+</strong><span>Autores</span></div><div class="numero"><strong>100%</strong><span>Educativo</span></div></div>
+</div></section>
+
+<section id="suscripcion">
+<div class="titulo-seccion"><h2>📩 Sé parte del lanzamiento</h2><p>Regístrate para recibir información sobre nuestra nueva revista educativa.</p></div>
+<form class="formulario" onsubmit="registrar(event)">
+<input type="text" id="nombre" placeholder="Tu nombre" required>
+<input type="email" id="correo" placeholder="Tu correo electrónico" required>
+<button type="submit">Quiero recibir novedades</button>
+<p id="mensaje" style="text-align:center;color:#16a34a;font-weight:600;"></p>
+</form>
+</section>
+
+<footer><p>© 2026 <strong>EduVisión</strong> | Revista Educativa</p></footer>
+
+<script>
+function registrar(event){
+event.preventDefault();
+const nombre=document.getElementById("nombre").value;
+const correo=document.getElementById("correo").value;
+localStorage.setItem("suscriptor",JSON.stringify({nombre,correo}));
+document.getElementById("mensaje").textContent="¡Gracias, "+nombre+"! Te has registrado correctamente.";
+document.getElementById("nombre").value="";
+document.getElementById("correo").value="";
+}
+</script>
+</body>
+</html>
