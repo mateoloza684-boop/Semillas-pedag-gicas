@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>EduVisión | Revista Educativa</title>
+  <meta name="description" content="EduVisión, revista educativa dedicada al conocimiento, la investigación y la innovación educativa.">
+
+  <style>
+    :root{
+      --azul:#123b63;
+      --azul-oscuro:#071b2e;
+      --celeste:#1d8acb;
+      --turquesa:#21b7a8;
+      --amarillo:#ffd166;
+      --blanco:#ffffff;
+      --gris:#eef4f8;
+      --texto:#17324d;
+      --sombra:0 18px 45px rgba(7,27,46,.18);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--texto);
+      background:var(--gris);
+      line-height:1.6;
+    }
+
+    /* MENÚ */
+    .navbar{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      z-index:1000;
+      background:rgba(7,27,46,.94);
+      backdrop-filter:blur(12px);
+      box-shadow:0 5px 20px rgba(0,0,0,.18);
+    }
+
+    .nav-container{
+      max-width:1200px;
+      margin:auto;
+      padding:14px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .logo{
+      color:white;
+      text-decoration:none;
+      font-size:1.35rem;
+      font-weight:800;
+      letter-spacing:.5px;
+    }
+
+    .logo span{color:var(--amarillo)}
+
+    .nav-links{
+      display:flex;
+      gap:8px;
+      list-style:none;
+    }
+
+    .nav-links a{
+      color:white;
+      text-decoration:none;
+      padding:9px 14px;
+      border-radius:25px;
+      transition:.25s;
+      font-weight:600;
+    }
+
+    .nav-links a:hover{
+      background:rgba(255,255,255,.13);
+      color:var(--amarillo);
+    }
+
+    .menu-btn{
+      display:none;
+      border:0;
+      background:none;
+      color:white;
+      font-size:1.7rem;
+      cursor:pointer;
+    }
+
+    /* PORTADA */
+    .hero{
+      min-height:100vh;
+      padding:130px 22px 80px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(135deg,rgba(7,27,46,.94),rgba(18,59,99,.82),rgba(29,138,203,.72)),
+        url("https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1800&q=85")
+        center/cover no-repeat fixed;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:420px;
+      height:420px;
+      border-radius:50%;
+      background:rgba(255,209,102,.13);
+      top:-160px;
+      right:-100px;
+      filter:blur(5px);
+    }
+
+    .hero-content{
+      position:relative;
+      max-width:900px;
+      color:white;
+      animation:entrada 1s ease;
+    }
+
+    @keyframes entrada{
+      from{opacity:0;transform:translateY(30px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    .etiqueta{
+      display:inline-block;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.28);
+      padding:8px 18px;
+      border-radius:30px;
+      margin-bottom:18px;
+      font-weight:700;
+      letter-spacing:.5px;
+    }
+
+    .hero h1{
+      font-size:clamp(3rem,8vw,6.5rem);
+      line-height:.95;
+      margin-bottom:20px;
+      letter-spacing:-3px;
+    }
+
+    .hero h1 span{color:var(--amarillo)}
+
+    .hero p{
+      max-width:760px;
+      margin:0 auto 30px;
+      font-size:clamp(1.05rem,2vw,1.35rem);
+      color:#edf7ff;
+    }
+
+    .hero-buttons{
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      padding:14px 23px;
+      border-radius:12px;
+      font-weight:800;
+      transition:.25s;
+      box-shadow:0 8px 22px rgba(0,0,0,.16);
+    }
+
+    .btn-primary{
+      background:var(--amarillo);
+      color:#172b3d;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-3px) scale(1.02);
+      box-shadow:0 12px 28px rgba(0,0,0,.24);
+    }
+
+    .btn-light{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.35);
+      color:white;
+    }
+
+    .btn-light:hover{
+      background:white;
+      color:var(--azul);
+      transform:translateY(-3px);
+    }
+
+    /* SECCIONES */
+    section{
+      padding:90px 22px;
+    }
+
+    .section-container{
+      max-width:1150px;
+      margin:auto;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:45px;
+    }
+
+    .section-title .mini{
+      color:var(--celeste);
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:.85rem;
+    }
+
+    .section-title h2{
+      color:var(--azul-oscuro);
+      font-size:clamp(2rem,4vw,3.2rem);
+      margin:8px 0 10px;
+    }
+
+    .section-title p{
+      max-width:720px;
+      margin:auto;
+      color:#587084;
+    }
+
+    /* ESTADÍSTICAS */
+    .stats{
+      background:white;
+    }
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+      max-width:1000px;
+      margin:auto;
+    }
+
+    .stat{
+      text-align:center;
+      padding:30px 20px;
+      border-radius:20px;
+      background:linear-gradient(145deg,#fff,#e9f4fb);
+      box-shadow:var(--sombra);
+      border-top:5px solid var(--celeste);
+    }
+
+    .stat strong{
+      display:block;
+      color:var(--azul);
+      font-size:2rem;
+      margin-bottom:5px;
+    }
+
+    /* EDICIONES */
+    .editions{
+      background:
+        linear-gradient(rgba(7,27,46,.93),rgba(18,59,99,.94)),
+        url("https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=1800&q=85")
+        center/cover fixed;
+      color:white;
+    }
+
+    .editions .section-title h2{color:white}
+    .editions .section-title p{color:#d7e8f5}
+    .editions .mini{color:var(--amarillo)}
+
+    .edition-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:30px;
+      max-width:1000px;
+      margin:auto;
+    }
+
+    .edition-card{
+      position:relative;
+      overflow:hidden;
+      min-height:420px;
+      border-radius:25px;
+      padding:35px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      background:linear-gradient(160deg,rgba(255,255,255,.15),rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:0 22px 50px rgba(0,0,0,.25);
+      transition:.35s;
+    }
+
+    .edition-card:hover{
+      transform:translateY(-10px);
+      box-shadow:0 28px 60px rgba(0,0,0,.34);
+      border-color:rgba(255,209,102,.7);
+    }
+
+    .edition-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 80% 20%,rgba(255,209,102,.3),transparent 35%),
+        linear-gradient(145deg,rgba(29,138,203,.35),transparent 60%);
+      pointer-events:none;
+    }
+
+    .edition-number{
+      position:absolute;
+      top:24px;
+      right:28px;
+      font-size:5rem;
+      font-weight:900;
+      color:rgba(255,255,255,.08);
+      line-height:1;
+    }
+
+    .edition-icon{
+      position:relative;
+      width:65px;
+      height:65px;
+      display:grid;
+      place-items:center;
+      border-radius:18px;
+      background:var(--amarillo);
+      color:var(--azul-oscuro);
+      font-size:2rem;
+      margin-bottom:auto;
+      box-shadow:0 10px 25px rgba(0,0,0,.2);
+    }
+
+    .edition-card h3{
+      position:relative;
+      font-size:2rem;
+      margin:0 0 10px;
+      color:white;
+    }
+
+    .edition-card p{
+      position:relative;
+      color:#dcecf7;
+      margin-bottom:22px;
+    }
+
+    .edition-card .btn{
+      position:relative;
+      width:max-content;
+    }
+
+    /* REGISTRO */
+    .register{
+      background:white;
+    }
+
+    .register-box{
+      max-width:850px;
+      margin:auto;
+      padding:45px;
+      border-radius:28px;
+      background:linear-gradient(135deg,#e8f7fb,#fff7d8);
+      box-shadow:var(--sombra);
+      text-align:center;
+    }
+
+    .register-box h2{
+      color:var(--azul);
+      margin-bottom:10px;
+      font-size:2.3rem;
+    }
+
+    .register-box p{
+      color:#5b7080;
+      margin-bottom:25px;
+    }
+
+    .form{
+      display:grid;
+      grid-template-columns:1fr 1fr auto;
+      gap:12px;
+    }
+
+    .form input{
+      width:100%;
+      border:2px solid #d8e6ee;
+      padding:14px 16px;
+      border-radius:12px;
+      outline:none;
+      font-size:1rem;
+    }
+
+    .form input:focus{
+      border-color:var(--celeste);
+      box-shadow:0 0 0 4px rgba(29,138,203,.12);
+    }
+
+    .message{
+      margin-top:15px;
+      font-weight:700;
+      color:var(--turquesa);
+      min-height:25px;
+    }
+
+    /* PIE */
+    footer{
+      background:var(--azul-oscuro);
+      color:#d7e8f5;
+      text-align:center;
+      padding:35px 20px;
+    }
+
+    footer strong{color:white}
+    footer .footer-logo{font-size:1.5rem;margin-bottom:8px}
+
+    /* RESPONSIVO */
+    @media(max-width:800px){
+      .menu-btn{display:block}
+
+      .nav-links{
+        display:none;
+        position:absolute;
+        top:65px;
+        left:0;
+        width:100%;
+        padding:12px 20px 20px;
+        background:rgba(7,27,46,.98);
+        flex-direction:column;
+      }
+
+      .nav-links.activo{display:flex}
+
+      .nav-links a{
+        display:block;
+        text-align:center;
+      }
+
+      .stats-grid,
+      .edition-grid{
+        grid-template-columns:1fr;
+      }
+
+      .form{
+        grid-template-columns:1fr;
+      }
+
+      .register-box{padding:30px 20px}
+    }
+
+    @media(max-width:480px){
+      section{padding:70px 16px}
+      .hero{padding-left:16px;padding-right:16px}
+      .edition-card{min-height:390px;padding:27px}
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MENÚ PRINCIPAL -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a class="logo" href="#inicio">Edu<span>Visión</span></a>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#ediciones">Ediciones</a></li>
+          <li><a href="#registro">Registro</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PORTADA -->
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <div class="etiqueta">REVISTA EDUCATIVA DIGITAL</div>
+
+        <h1>Edu<span>Visión</span></h1>
+
+        <p>
+          Un espacio para descubrir conocimiento, investigación, educación,
+          ciencia y experiencias que inspiran nuevas formas de aprender.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#ediciones" class="btn btn-primary">📚 Ver las ediciones</a>
+          <a href="#registro" class="btn btn-light">✉️ Registrarme</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFORMACIÓN -->
+    <section class="stats">
+      <div class="section-container">
+        <div class="section-title">
+          <div class="mini">Conocimiento para compartir</div>
+          <h2>Una revista creada para aprender</h2>
+          <p>
+            Explora contenidos educativos elaborados para acercar la investigación
+            y el conocimiento a estudiantes, docentes y lectores curiosos.
+          </p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat">
+            <strong>2</strong>
+            Ediciones disponibles
+          </div>
+
+          <div class="stat">
+            <strong>100%</strong>
+            Contenido educativo
+          </div>
+
+          <div class="stat">
+            <strong>3 ediciones</strong>
+            Llenas de conocimiento
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOS EDICIONES -->
+    <section class="editions" id="ediciones">
+      <div class="section-container">
+
+        <div class="section-title">
+          <div class="mini">Nuestra colección</div>
+          <h2>Explora nuestras ediciones</h2>
+          <p>
+            Selecciona una edición para abrir el documento correspondiente.
+            Los botones están preparados para funcionar con archivos PDF
+            almacenados en tu repositorio de GitHub.
+          </p>
+        </div>
+
+        <div class="edition-grid">
+
+          <!-- EDICIÓN 1 -->
+          <article class="edition-card">
+            <div class="edition-number">01</div>
+            <div class="edition-icon">📖</div>
+
+            <h3>Primera edición</h3>
+
+            <p>
+              Descubre artículos, investigaciones y propuestas educativas
+              reunidas en nuestra primera edición de la revista.
+            </p>
+
+            <!-- Cambia el nombre si tu PDF tiene otro nombre -->
+            <a href="edicion-1.pdf" target="_blank" rel="noopener" class="btn btn-primary">
+              📖 Leer edición 1
+            </a>
+          </article>
+
+          <!-- EDICIÓN 2 -->
+          <article class="edition-card">
+            <div class="edition-number">02</div>
+            <div class="edition-icon">🔬</div>
+
+            <h3>Segunda edición</h3>
+
+            <p>
+              Una nueva selección de contenidos para continuar explorando
+              la educación, la ciencia y la producción de conocimiento.
+            </p>
+
+            <!-- Cambia el nombre si tu PDF tiene otro nombre -->
+            <a href="edicion-2.pdf" target="_blank" rel="noopener" class="btn btn-primary">
+              📚 Leer edición 2
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- REGISTRO -->
+    <section class="register" id="registro">
+      <div class="section-container">
+        <div class="register-box">
+          <h2>Forma parte de EduVisión</h2>
+          <p>
+            Regístrate con tu nombre y correo electrónico para mantenerte
+            informado sobre nuevas ediciones y contenidos.
+          </p>
+
+          <form class="form" id="registroForm">
+            <input type="text" id="nombre" placeholder="Tu nombre" required>
+            <input type="email" id="correo" placeholder="Tu correo electrónico" required>
+            <button type="submit" class="btn btn-primary">Registrarme</button>
+          </form>
+
+          <div class="message" id="mensaje"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PIE -->
+  <footer>
+    <div class="footer-logo"><strong>EduVisión</strong></div>
+    <p>Revista educativa digital · Conocimiento que inspira</p>
+    <p>© 2026 EduVisión</p>
+  </footer>
+
+  <script>
+    // MENÚ PARA CELULAR
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("activo");
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(enlace => {
+      enlace.addEventListener("click", () => {
+        navLinks.classList.remove("activo");
+      });
+    });
+
+    // REGISTRO LOCAL TEMPORAL
+    // Posteriormente puede sustituirse por Supabase.
+    const formulario = document.getElementById("registroForm");
+    const mensaje = document.getElementById("mensaje");
+
+    formulario.addEventListener("submit", (evento) => {
+      evento.preventDefault();
+
+      const nombre = document.getElementById("nombre").value.trim();
+      const correo = document.getElementById("correo").value.trim();
+
+      if (!nombre || !correo) return;
+
+      localStorage.setItem(
+        "suscriptor",
+        JSON.stringify({
+          nombre: nombre,
+          correo: correo,
+          fecha: new Date().toLocaleString("es-BO")
+        })
+      );
+
+      mensaje.textContent = "¡Registro realizado correctamente!";
+      formulario.reset();
+    });
+  </script>
+
+</body>
+</html>
